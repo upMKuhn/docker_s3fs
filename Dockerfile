@@ -23,7 +23,9 @@ RUN echo $(date "+%Y-%m-%d_%H:%M:%S") >> /.image_times && \
 
 VOLUME /mnt/s3fs
 
-CMD  echo ${AccessKeyId}:${SecretAccessKey} > /opt/s3fs_passwd && chmod 600 /opt/s3fs_passwd && s3fs ${Region} /mnt/s3fs -o passwd_file=/opt/s3fs_passwd  -d -d -f -o f2 -o curldbg ; bash
+RUN echo 'echo ${AccessKeyId}:${SecretAccessKey} > /opt/s3fs_passwd && chmod 600 /opt/s3fs_passwd && nohup s3fs ${Region} /mnt/s3fs -o passwd_file=/opt/s3fs_passwd  -d -d -f -o f2 -o curldbg > /dev/null 2>&1 &' > /start.sh && chmod +x /start.sh
+
+CMD /start.sh ; bash
 
 #docker build -t land007/s3fs:latest .
 #docker rm -f s3fs ; docker run -it --privileged --name s3fs land007/s3fs:latest
