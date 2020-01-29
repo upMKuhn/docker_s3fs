@@ -23,7 +23,7 @@ RUN echo $(date "+%Y-%m-%d_%H:%M:%S") >> /.image_times && \
 
 VOLUME /mnt/s3fs
 
-RUN echo 'echo ${AccessKeyId}:${SecretAccessKey} > /opt/s3fs_passwd && chmod 600 /opt/s3fs_passwd && nohup s3fs ${Region} /mnt/s3fs -o passwd_file=/opt/s3fs_passwd  -d -d -f -o f2 -o curldbg > /dev/null 2>&1 &' > /start.sh && chmod +x /start.sh
+RUN echo 'echo ${AccessKeyId}:${SecretAccessKey} > /opt/s3fs_passwd && chmod 600 /opt/s3fs_passwd && nohup s3fs ${Region} /mnt/s3fs -o passwd_file=/opt/s3fs_passwd  -d -d -f -o f2 -o curldbg -o umask=0000 -o mp_umask=0000 -o allow_other > /dev/null 2>&1 &' > /start.sh && chmod +x /start.sh
 
 CMD /start.sh ; bash
 
