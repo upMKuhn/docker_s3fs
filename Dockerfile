@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM docker.io/project31/aarch64-alpine-qemu:3.5
 
 MAINTAINER Yiqiu Jia <yiqiujia@hotmail.com>
 
